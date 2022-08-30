@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
-using static MouseRun.Enums;
 
-namespace MouseRun {
+namespace PublicUtility.MouseRun {
 
   public static class Mouse {
 
