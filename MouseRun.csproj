@@ -13,7 +13,7 @@
     <PackAsTool>False</PackAsTool>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>DOTNET;.NET6; MOUSE; HELPER; ASPNET</PackageTags>
+    <PackageTags>DOTNET;.NET6; .NET; MOUSE; HELPER; ASPNET</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Lucas F Sousa</Authors>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
