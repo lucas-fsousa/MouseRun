@@ -4,7 +4,7 @@ A helper for mouse manipulation involving clicks and movements.
 
 ## Installation
 
-To install, just run the C# compiler to generate the .dll file and once the file has been generated, just add the reference to the project or use [Nuget]("https://www.nuget.org/packages/PublicUtility.MouseRun") or in nuget console, use the following command:
+To install, just run the C# compiler to generate the .dll file and once the file has been generated, just add the reference to the project or use [Nuget](https://www.nuget.org/packages/PublicUtility.MouseRun) or in nuget console, use the following command:
 
 
 ```bash
