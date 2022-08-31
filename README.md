@@ -14,7 +14,7 @@ install-Package PublicUtility.MouseRun
 ## Usage
 
 ```csharp
-using MouseRun;
+using PublicUtility.MouseRun;
 
 var pos = Mouse.GetPosition(); // gets the current cursor position.
 
