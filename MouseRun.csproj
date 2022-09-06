@@ -19,7 +19,8 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Copyright>Lucas Sousa. All rights reserved.</Copyright>
     <PackageId>PublicUtility.$(AssemblyName)</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Namespace movement. Data structures and enumerators have been moved to the PublicUtility.Nms namespace</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
