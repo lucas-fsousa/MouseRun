@@ -22,7 +22,7 @@ Mouse.MoveTo(500, 40); // moves the mouse to the X and Y point of the screen
 
 Mouse.MoveToAndClick(500, 40); // moves the mouse to the X and Y point of the screen and executes a click
 
-Mouse.Drag(new Point(10, 10), new Point(50,50)); // performs the action of dragging the mouse from one point to another point
+Mouse.Drag(new PointIntoScreen(10, 10), new PointIntoScreen(50,50)); // performs the action of dragging the mouse from one point to another point
 
 ```
 

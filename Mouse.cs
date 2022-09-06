@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
+using PublicUtility.Nms.Enums;
+using PublicUtility.Nms.Structs;
 
 namespace PublicUtility.MouseRun {
 
@@ -8,7 +10,7 @@ namespace PublicUtility.MouseRun {
     #region INTEROPT DLL IMPORTS
 
     [DllImport("user32.dll")]
-    private static extern bool GetCursorPos(out Point lpPoint);
+    private static extern bool GetCursorPos(out PointIntoScreen lpPoint);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
     private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint data, uint dwExtraInfo);
@@ -22,7 +24,7 @@ namespace PublicUtility.MouseRun {
     #endregion
 
     #region PRIVATE METHODS
-    private static bool CheckCorner(Point point) {
+    private static bool CheckCorner(PointIntoScreen point) {
       Size size = new(GetSystemMetrics(0), GetSystemMetrics(1));
       bool response = false;
 
@@ -44,7 +46,7 @@ namespace PublicUtility.MouseRun {
       return response;
     }
 
-    private static void MouseMoveControl(Point start, Point end, MouseSpeed speed) {
+    private static void MouseMoveControl(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed) {
       bool startOk = CheckCorner(start);
       bool endOk = CheckCorner(end);
 
@@ -114,7 +116,7 @@ namespace PublicUtility.MouseRun {
       if(clicks < 0)
         throw new Exception($"{nameof(clicks)} cannot be less than zero.");
 
-      mouse_event((uint)MouseAction.Absolute | (uint)MouseAction.Wheel, 0, 0, (uint)-clicks, 0);
+      mouse_event((uint)MouseAction.Absolute| (uint)MouseAction.Wheel, 0, 0, (uint)-clicks, 0);
     }
 
     public static void RollUp(uint clicks) {
@@ -124,15 +126,15 @@ namespace PublicUtility.MouseRun {
       mouse_event((uint)MouseAction.Wheel, 0, 0, clicks, 0);
     }
 
-    public static Point GetPosition() {
-      Point current = new();
+    public static PointIntoScreen GetPosition() {
       try {
-        GetCursorPos(out current);
-      } catch(Exception) { }
-      return current;
+        GetCursorPos(out PointIntoScreen current);
+        return current;
+      } catch(Exception) { return new(0, 0); }
+      
     }
 
-    public static void Drag(Point start, Point end, MouseSpeed speed = MouseSpeed.X1) {
+    public static void Drag(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed = MouseSpeed.X1) {
       MoveTo(start, speed);
       Thread.Sleep(300);
       mouse_event((uint)MouseAction.LeftDown, 0, 0, 0, 0);
@@ -143,12 +145,12 @@ namespace PublicUtility.MouseRun {
 
     public static void LeftClick(bool doubleClick = false) {
       if(doubleClick) {
-        mouse_event((uint)MouseAction.LeftDown | (uint)MouseAction.LeftUp, 0, 0, 0, 0);
+        mouse_event((uint)MouseAction.LeftDown| (uint)MouseAction.LeftUp, 0, 0, 0, 0);
         Thread.Sleep(100);
         mouse_event((uint)MouseAction.LeftDown | (uint)MouseAction.LeftUp, 0, 0, 0, 0);
         return;
       }
-      mouse_event((uint)MouseAction.LeftDown | (uint)MouseAction.LeftUp, 0, 0, 0, 0);
+      mouse_event((uint)MouseAction.LeftDown| (uint)MouseAction.LeftUp, 0, 0, 0, 0);
 
     }
 
@@ -174,7 +176,7 @@ namespace PublicUtility.MouseRun {
 
     }
 
-    public static void MoveToAndClick(this Point point, MouseSpeed speed = MouseSpeed.X2, bool doubleClick = false, bool leftbtn = true) {
+    public static void MoveToAndClick(this PointIntoScreen point, MouseSpeed speed = MouseSpeed.X2, bool doubleClick = false, bool leftbtn = true) {
       MoveTo(point, speed);
       if(leftbtn)
         LeftClick(doubleClick);
@@ -187,13 +189,13 @@ namespace PublicUtility.MouseRun {
 
     #region OVERLOAD MOVETO
 
-    public static void MoveTo(this Point point, MouseSpeed speed = MouseSpeed.X1) {
-      Point start = GetPosition();
+    public static void MoveTo(this PointIntoScreen point, MouseSpeed speed = MouseSpeed.X1) {
+      var start = GetPosition();
       MouseMoveControl(start, point, speed);
     }
 
     public static void MoveTo(int x, int y, MouseSpeed speed = MouseSpeed.X1) {
-      Point start = GetPosition();
+      var start = GetPosition();
       MouseMoveControl(start, new(x, y), speed);
     }
 
