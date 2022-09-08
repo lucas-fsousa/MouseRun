@@ -19,12 +19,17 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Copyright>Lucas Sousa. All rights reserved.</Copyright>
     <PackageId>PublicUtility.$(AssemblyName)</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageReleaseNotes>Namespace movement. Data structures and enumerators have been moved to the PublicUtility.Nms namespace</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PublicUtility.Nms" Version="1.0.0" />
+    <PackageReference Include="PublicUtility.Nms" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PublicUtility.MouseRun.Linux\PublicUtility.MouseRun.Linux.csproj" />
+    <ProjectReference Include="..\PublicUtility.MouseRun.Windows\PublicUtility.MouseRun.Windows.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using PublicUtility.Nms.Enums;
 using PublicUtility.Nms.Structs;
+using PublicUtility.MouseRun.Windows;
+using PublicUtility.MouseRun.Linux;
 
 namespace PublicUtility.MouseRun {
 
@@ -8,7 +10,7 @@ namespace PublicUtility.MouseRun {
 
     public static void RollDown(uint clicks) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.RollDown(clicks);
+        WinMouseHandle.RollDown(clicks);
         return;
       }
 
@@ -17,7 +19,7 @@ namespace PublicUtility.MouseRun {
 
     public static void RollUp(uint clicks) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.RollUp(clicks);
+        WinMouseHandle.RollUp(clicks);
         return;
       }
 
@@ -26,7 +28,7 @@ namespace PublicUtility.MouseRun {
 
     public static void LeftClick(bool doubleClick = false) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.LeftClick(doubleClick);
+        WinMouseHandle.LeftClick(doubleClick);
         return;
       }
 
@@ -35,7 +37,7 @@ namespace PublicUtility.MouseRun {
 
     public static void RightClick(bool doubleClick = false) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.RightClick(doubleClick);
+        WinMouseHandle.RightClick(doubleClick);
         return;
       }
 
@@ -44,7 +46,7 @@ namespace PublicUtility.MouseRun {
 
     public static void Drag(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed = MouseSpeed.X1) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.Drag(start, end, speed);
+        WinMouseHandle.Drag(start, end, speed);
         return;
       }
 
@@ -53,7 +55,7 @@ namespace PublicUtility.MouseRun {
 
     public static PointIntoScreen GetPosition() {
       if(OperatingSystem.IsWindows())
-        return Windows.MouseHandle.GetPosition();
+        return WinMouseHandle.GetPosition();
 
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -61,7 +63,7 @@ namespace PublicUtility.MouseRun {
 
     public static void MoveToAndClick(this PointIntoScreen point, MouseSpeed mouseSpeed = MouseSpeed.X2, bool doubleClick = false, bool leftMouseButton = true) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.MoveToAndClick(point, mouseSpeed ,doubleClick, leftMouseButton);
+        WinMouseHandle.MoveToAndClick(point, mouseSpeed ,doubleClick, leftMouseButton);
         return;
       }
         
@@ -70,7 +72,7 @@ namespace PublicUtility.MouseRun {
 
     public static void MoveTo(this PointIntoScreen point, MouseSpeed mouseSpeed = MouseSpeed.X2) {
       if(OperatingSystem.IsWindows()) {
-        Windows.MouseHandle.MoveTo(point, mouseSpeed);
+        WinMouseHandle.MoveTo(point, mouseSpeed);
         return;
       }
 
