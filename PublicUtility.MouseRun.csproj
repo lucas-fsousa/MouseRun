@@ -28,11 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PublicUtility.MouseRun.Linux\PublicUtility.MouseRun.Linux.csproj" />
-    <ProjectReference Include="..\PublicUtility.MouseRun.Windows\PublicUtility.MouseRun.Windows.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
