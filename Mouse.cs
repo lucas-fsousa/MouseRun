@@ -6,12 +6,18 @@ using PublicUtility.MouseRun.Linux;
 namespace PublicUtility.MouseRun {
 
   public static class Mouse {
+
     private static readonly string _platformMessageError = "Platform not yet supported by the application. Wait for new updates.";
+    private static readonly string _notImplementMessageError = "platform in the process of mapping.";
 
     public static void RollDown(uint clicks) {
       if(OperatingSystem.IsWindows()) {
         WinMouseHandle.RollDown(clicks);
         return;
+      }
+
+      if(OperatingSystem.IsLinux()) { 
+        throw new NotImplementedException(_notImplementMessageError);
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -23,6 +29,10 @@ namespace PublicUtility.MouseRun {
         return;
       }
 
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
+      }
+
       throw new PlatformNotSupportedException(_platformMessageError);
     }
 
@@ -30,6 +40,10 @@ namespace PublicUtility.MouseRun {
       if(OperatingSystem.IsWindows()) {
         WinMouseHandle.LeftClick(doubleClick);
         return;
+      }
+
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -41,6 +55,10 @@ namespace PublicUtility.MouseRun {
         return;
       }
 
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
+      }
+
       throw new PlatformNotSupportedException(_platformMessageError);
     }
 
@@ -50,13 +68,20 @@ namespace PublicUtility.MouseRun {
         return;
       }
 
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
+      }
+
       throw new PlatformNotSupportedException(_platformMessageError);
     }
 
     public static PointIntoScreen GetPosition() {
       if(OperatingSystem.IsWindows())
         return WinMouseHandle.GetPosition();
-
+      
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
+      }
 
       throw new PlatformNotSupportedException(_platformMessageError);
     }
@@ -66,7 +91,11 @@ namespace PublicUtility.MouseRun {
         WinMouseHandle.MoveToAndClick(point, mouseSpeed ,doubleClick, leftMouseButton);
         return;
       }
-        
+
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
+      }
+
       throw new PlatformNotSupportedException(_platformMessageError);
     }
 
@@ -74,6 +103,10 @@ namespace PublicUtility.MouseRun {
       if(OperatingSystem.IsWindows()) {
         WinMouseHandle.MoveTo(point, mouseSpeed);
         return;
+      }
+
+      if(OperatingSystem.IsLinux()) {
+        throw new NotImplementedException(_notImplementMessageError);
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
