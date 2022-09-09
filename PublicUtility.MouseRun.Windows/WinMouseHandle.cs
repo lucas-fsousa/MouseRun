@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.Runtime.InteropServices;
-using PublicUtility.Nms.Enums;
+﻿using PublicUtility.Nms.Enums;
 using PublicUtility.Nms.Structs;
+using System.Runtime.InteropServices;
 
 namespace PublicUtility.MouseRun.Windows {
 

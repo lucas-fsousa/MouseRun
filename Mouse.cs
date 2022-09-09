@@ -106,7 +106,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.MoveTo(point, mouseSpeed);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
