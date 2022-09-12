@@ -16,8 +16,9 @@ namespace PublicUtility.MouseRun {
         return;
       }
 
-      if(OperatingSystem.IsLinux()) { 
-        throw new NotImplementedException(_notImplementMessageError);
+      if(OperatingSystem.IsLinux()) {
+        LinuxMouseHandle.RollDown(clicks);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -30,7 +31,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.RollUp(clicks);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -43,7 +45,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.LeftClick(doubleClick);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -56,7 +59,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.RightClick(doubleClick);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -69,7 +73,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.Drag(start, end, speed);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);
@@ -79,10 +84,9 @@ namespace PublicUtility.MouseRun {
       if(OperatingSystem.IsWindows())
         return WinMouseHandle.GetPosition();
       
-      if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
-      }
-
+      if(OperatingSystem.IsLinux())
+        return LinuxMouseHandle.GetPosition();
+      
       throw new PlatformNotSupportedException(_platformMessageError);
     }
 
@@ -93,7 +97,8 @@ namespace PublicUtility.MouseRun {
       }
 
       if(OperatingSystem.IsLinux()) {
-        throw new NotImplementedException(_notImplementMessageError);
+        LinuxMouseHandle.MoveToAndClick(point, mouseSpeed, doubleClick, leftMouseButton);
+        return;
       }
 
       throw new PlatformNotSupportedException(_platformMessageError);

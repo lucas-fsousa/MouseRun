@@ -174,10 +174,8 @@ namespace PublicUtility.MouseRun.Windows {
 
     }
 
-    public static void MoveTo(PointIntoScreen point, MouseSpeed speed = MouseSpeed.X1) {
-      var start = GetPosition();
-      MouseMoveControl(start, point, speed);
-    }
+    public static void MoveTo(PointIntoScreen point, MouseSpeed speed = MouseSpeed.X1) => MouseMoveControl(GetPosition(), point, speed);
+    
   
   }
 

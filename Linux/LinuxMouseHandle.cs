@@ -4,10 +4,11 @@ using PublicUtility.Nms;
 using PublicUtility.Nms.Enums;
 using PublicUtility.Nms.Structs;
 using System.Text;
+using System.ComponentModel;
 
 namespace PublicUtility.MouseRun.Linux {
   public static class LinuxMouseHandle {
-    private const string _requiredInstall = "Need to install xdotool. For Ubuntu, Debian or Linux Mint, you can just do: \n \"sudo apt-get install xdotool\".\n For Fedora: \"sudo yum install xdotool\" or try using \"sudo pacman -S xdotool\" for other items. Read more infos in https://github.com/jordansissel/xdotool";
+    private const string _requiredInstallMessageError = "Need to install xdotool. For Ubuntu, Debian or Linux Mint, you can just do: \n \"sudo apt-get install xdotool\".\n For Fedora: \"sudo yum install xdotool\" or try using \"sudo pacman -S xdotool\" for other items. Read more infos in https://github.com/jordansissel/xdotool";
 
     #region PRIVATE
     private static void MouseMoveControl(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed) {
@@ -64,28 +65,43 @@ namespace PublicUtility.MouseRun.Linux {
         cc++;
       }
     }
-    
-    private static void SetCursor(int x, int y) => InvokeXdotool($"{XdotTool.MOUSE_MOVE} {x} {y}", out _);
-    
-    private static void InvokeXdotool(string commands, out object result) {
-      var proc = new Process {
-        StartInfo = {
+
+    private static void SetCursor(int x, int y) => InvokeXdotool($"mousemove {x} {y}");
+
+    private static string InvokeXdotool(string commands) {
+      try {
+        var proc = new Process {
+          StartInfo = {
           FileName = "xdotool",
           Arguments = commands,
           UseShellExecute = false,
           RedirectStandardError = false,
           RedirectStandardInput = false,
-          RedirectStandardOutput = false
-        }
-      };
-      proc.Start();
-      result = proc.StandardOutput.ReadToEnd();
+          RedirectStandardOutput = true
+          }
+        };
+        proc.Start();
+        var result = proc.StandardOutput.ReadToEnd();
+      } catch(Win32Exception ex) {
+        throw new Exception($"{ex.Message} # {_requiredInstallMessageError}");
+
+      } catch(Exception ex) { 
+        throw new Exception(ex.Message, ex);
+      }
+
+
+      return string.Empty;
     }
     #endregion
 
-    public static void GetPosition() {
-      InvokeXdotool("getmouselocation", out object consoleResponse);
-      Console.WriteLine(consoleResponse);
+    public static PointIntoScreen GetPosition() {
+      try {
+        var obj = InvokeXdotool("getmouselocation").Split(' ');
+        var x = Convert.ToInt32(obj[0].Replace("x:", ""));
+        var y = Convert.ToInt32(obj[1].Replace("y:", ""));
+        return new(x, y);
+      } catch { return new(0, 0); }
+
     }
 
     public static void LeftClick(bool doubleClick = false) {
@@ -104,7 +120,7 @@ namespace PublicUtility.MouseRun.Linux {
       InvokeXdotool(command.ToString());
     }
 
-    public static void MoveTo(PointIntoScreen point, MouseSpeed speed = MouseSpeed.X1) => MouseMoveControl(new(1, 1), point, speed);
+    public static void MoveTo(PointIntoScreen point, MouseSpeed speed = MouseSpeed.X1) => MouseMoveControl(GetPosition(), point, speed);
 
     public static void MoveToAndClick(PointIntoScreen point, MouseSpeed speed = MouseSpeed.X2, bool doubleClick = false, bool leftbtn = true) {
       MoveTo(point, speed);
@@ -140,10 +156,10 @@ namespace PublicUtility.MouseRun.Linux {
     public static void Drag(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed = MouseSpeed.X1) {
       MoveTo(start, speed);
       Thread.Sleep(300);
-      mouse_event((uint)MouseAction.LeftDown, 0, 0, 0, 0);
+      InvokeXdotool("mousedown 1");
       MoveTo(end, speed);
       Thread.Sleep(300);
-      mouse_event((uint)MouseAction.LeftUp, 0, 0, 0, 0);
+      InvokeXdotool("mouseup 1");
     }
 
   }
