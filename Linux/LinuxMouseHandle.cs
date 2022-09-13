@@ -1,10 +1,8 @@
-﻿using System.Security.Cryptography;
-using System.Diagnostics;
-using PublicUtility.Nms;
-using PublicUtility.Nms.Enums;
+﻿using PublicUtility.Nms.Enums;
 using PublicUtility.Nms.Structs;
-using System.Text;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
 
 namespace PublicUtility.MouseRun.Linux {
   internal static class LinuxMouseHandle {
@@ -83,9 +81,12 @@ namespace PublicUtility.MouseRun.Linux {
         proc.Start();
         return proc.StandardOutput.ReadToEnd();
       } catch(Win32Exception) {
-        throw new Exception($"{_requiredInstallMessageError}");
+        throw new Exception(_requiredInstallMessageError);
 
-      } catch(Exception ex) { throw new Exception(ex.Message, ex); }
+      } catch(Exception ex) {
+        throw new Exception(ex.Message, ex);
+
+      }
 
     }
     #endregion
