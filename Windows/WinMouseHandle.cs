@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace PublicUtility.MouseRun.Windows {
 
-  public static class WinMouseHandle {
+  internal static class WinMouseHandle {
 
     #region INTEROPT DLL IMPORTS
 

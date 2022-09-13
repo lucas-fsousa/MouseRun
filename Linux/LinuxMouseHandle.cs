@@ -1,14 +1,12 @@
-﻿using System.Security.Cryptography;
-using System.Diagnostics;
-using PublicUtility.Nms;
-using PublicUtility.Nms.Enums;
+﻿using PublicUtility.Nms.Enums;
 using PublicUtility.Nms.Structs;
-using System.Text;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
 
 namespace PublicUtility.MouseRun.Linux {
-  public static class LinuxMouseHandle {
-    private const string _requiredInstallMessageError = "Need to install xdotool. For Ubuntu, Debian or Linux Mint, you can just do: \n \"sudo apt-get install xdotool\".\n For Fedora: \"sudo yum install xdotool\" or try using \"sudo pacman -S xdotool\" for other items. Read more infos in https://github.com/jordansissel/xdotool";
+  internal static class LinuxMouseHandle {
+    private const string _requiredInstallMessageError = "Need to install xdotool. \n For Ubuntu, Debian or Linux Mint, you can just do: \"sudo apt-get install xdotool\". \n For Fedora: \"sudo yum install xdotool\". \n For other items try using: \"sudo pacman -S xdotool\". \n [ Read more infos in https://github.com/jordansissel/xdotool ]";
 
     #region PRIVATE
     private static void MouseMoveControl(PointIntoScreen start, PointIntoScreen end, MouseSpeed speed) {
@@ -81,16 +79,15 @@ namespace PublicUtility.MouseRun.Linux {
           }
         };
         proc.Start();
-        var result = proc.StandardOutput.ReadToEnd();
-      } catch(Win32Exception ex) {
-        throw new Exception($"{ex.Message} # {_requiredInstallMessageError}");
+        return proc.StandardOutput.ReadToEnd();
+      } catch(Win32Exception) {
+        throw new Exception(_requiredInstallMessageError);
 
-      } catch(Exception ex) { 
+      } catch(Exception ex) {
         throw new Exception(ex.Message, ex);
+
       }
 
-
-      return string.Empty;
     }
     #endregion
 
